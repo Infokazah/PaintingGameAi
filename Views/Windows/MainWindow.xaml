@@ -1,0 +1,88 @@
+﻿<Window x:Class="PaintGameMVVM.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:PaintGameMVVM.ViewModel"
+        xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+        xmlns:xcees="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:fa="http://schemas.fontawesome.com/icons/"
+        xmlns:local="clr-namespace:PaintGameMVVM" xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="1080" Width="1920"
+        WindowState="Maximized">
+    <Window.DataContext>
+        <vm:MainWindowViewModel />
+    </Window.DataContext>
+    <Window.InputBindings>
+        <KeyBinding Key="Z" Modifiers="Ctrl" Command="{Binding RemoveStroke}"/>
+    </Window.InputBindings>
+    <TabControl Background="Gray">
+        <TabItem Header="Играть">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.4*"/>
+                    <RowDefinition Height="10*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" Background="#FF5D5959"
+                            Grid.Row="0">
+
+                    <StackPanel Width="75" Margin="5" Orientation="Horizontal">
+                        <Button Command="{Binding ChangeEditingMode}" Width="30"
+                        CommandParameter="{x:Static InkCanvasEditingMode.Ink}">
+                            <Button.Content>
+                                <StackPanel>
+                                    <fa:ImageAwesome Height="20" Icon="Solid_PaintBrush"/>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                        <xcees:ColorPicker Width="45" SelectedColor="{Binding CurrentColor}"/>
+                    </StackPanel>
+                    <Button  Margin="5" Command="{Binding ChangeEditingMode}" Width="30"
+                            CommandParameter="{x:Static InkCanvasEditingMode.EraseByPoint}">
+                        <Button.Content>
+                            <StackPanel>
+                                <fa:ImageAwesome Height="20" Icon="Solid_Eraser"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                    <Button Margin="5" Command="{Binding RemoveStroke}" Width="30">
+                        <Button.Content>
+                            <StackPanel>
+                                <fa:ImageAwesome Height="20" Icon="Solid_ArrowLeft"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                    <TextBox Margin="5" Width="30" Text="{Binding CurrentSize}" FontSize="20" TextAlignment="Center"/>
+                    <TextBlock Text="{Binding CurrentTheme}" Width="100" Margin="5" FontSize="20" TextAlignment="Center" Background="White" />
+                    <Button Margin="5" Command="{Binding AiPredictCommand}" 
+                    CommandParameter="{Binding ElementName=drawingCanvas}" >
+                        <Button.Content>
+                            <StackPanel>
+                                <fa:ImageAwesome Height="20" Icon="Solid_Check" Foreground="#FF2BC815"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+                <InkCanvas x:Name="drawingCanvas" Background="White" Grid.Row="1" Margin="10"
+            DefaultDrawingAttributes="{Binding CustomDrawingAttributes}"
+            EditingMode="{Binding CanvasEditingMode}"
+            Strokes="{Binding CanvasStrokeCollection}">
+                    <behaviors:Interaction.Triggers>
+                        <behaviors:EventTrigger EventName="StrokeCollected">
+                            <behaviors:InvokeCommandAction Command="{Binding AddStroke}" 
+                                   CommandParameter="{Binding ElementName=drawingCanvas, Path=Strokes}" />
+                        </behaviors:EventTrigger>
+                    </behaviors:Interaction.Triggers>
+                </InkCanvas>
+                <Image Source="{Binding ImageSource}" Grid.Row="2"/>
+            </Grid>
+
+        </TabItem>
+        <TabItem Header="Инструкция">
+            <Grid>
+                
+            </Grid>
+        </TabItem>
+    </TabControl>
+</Window>

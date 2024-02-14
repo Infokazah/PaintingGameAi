@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Ai\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0" />
+    <PackageReference Include="FontAwesome5" Version="2.1.11" />
+    <PackageReference Include="Microsoft.ML" Version="3.0.1" />
+    <PackageReference Include="Microsoft.ML.Vision" Version="1.7.1" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
+    <PackageReference Include="SciSharp.TensorFlow.Redist" Version="2.3.1" />
+  </ItemGroup>
+  <ItemGroup Label="DivineModel">
+    <None Include="DivineModel.consumption.cs">
+      <DependentUpon>DivineModel.mbconfig</DependentUpon>
+    </None>
+    <None Include="DivineModel.training.cs">
+      <DependentUpon>DivineModel.mbconfig</DependentUpon>
+    </None>
+    <None Include="DivineModel.zip">
+      <DependentUpon>DivineModel.mbconfig</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>
