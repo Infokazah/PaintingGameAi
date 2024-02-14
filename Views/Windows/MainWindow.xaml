@@ -20,12 +20,16 @@
     <TabControl Background="Gray">
         <TabItem Header="Играть">
             <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="21*"/>
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="0.4*"/>
                     <RowDefinition Height="10*"/>
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Horizontal" Background="#FF5D5959"
-                            Grid.Row="0">
+                            Grid.Row="0" Grid.ColumnSpan="2" >
 
                     <StackPanel Width="75" Margin="5" Orientation="Horizontal">
                         <Button Command="{Binding ChangeEditingMode}" Width="30"
@@ -64,10 +68,10 @@
                         </Button.Content>
                     </Button>
                 </StackPanel>
-                <InkCanvas x:Name="drawingCanvas" Background="White" Grid.Row="1" Margin="10"
+                <InkCanvas x:Name="drawingCanvas" Background="White" Grid.Row="1" Margin="10,10,10,10"
             DefaultDrawingAttributes="{Binding CustomDrawingAttributes}"
             EditingMode="{Binding CanvasEditingMode}"
-            Strokes="{Binding CanvasStrokeCollection}">
+            Strokes="{Binding CanvasStrokeCollection}" Grid.ColumnSpan="2">
                     <behaviors:Interaction.Triggers>
                         <behaviors:EventTrigger EventName="StrokeCollected">
                             <behaviors:InvokeCommandAction Command="{Binding AddStroke}" 
@@ -75,13 +79,51 @@
                         </behaviors:EventTrigger>
                     </behaviors:Interaction.Triggers>
                 </InkCanvas>
-                <Image Source="{Binding ImageSource}" Grid.Row="2"/>
+                <Image Source="{Binding ImageSource}" Grid.Row="1" Grid.ColumnSpan="2"/>
             </Grid>
 
         </TabItem>
         <TabItem Header="Инструкция">
             <Grid>
-                
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Image Source="D:\Codes\PaintingGame\bin\Debug\net7.0-windows\image1.png" Grid.Row="0" Grid.ColumnSpan="2" Margin="917,0,-50,173" Grid.RowSpan="2"/>
+                <TextBlock Grid.Row="0" Grid.Column="0"  FontSize="44">
+                    Задача игры заключается в рисования по теме так чтобы ИИ понял 
+                    <LineBreak />
+                    что вы нарисовали и это совпало с темой.
+                    <LineBreak />
+                    Тема пишется в данной плашке
+                </TextBlock>
+                <TextBlock Grid.Row="1" Grid.Column="0"  FontSize="44">
+                    На панели инструментов представленна
+                    <LineBreak />
+                    стирка, карандашь, назад.
+                    <LineBreak />
+                    Для выбора инструментов нужно нажать 
+                    <LineBreak/>
+                    соответствующую кнопку 
+                    <LineBreak/>
+                    (ctr+z использует назад)
+                </TextBlock>
+                <TextBlock Grid.Row="2" Grid.Column="0"  FontSize="44">
+                    В приложении предоставлен инструмент
+                    <LineBreak />
+                    для выбора цвета
+                    <LineBreak />
+                    Есть возможность выбрать из предложенных 
+                    <LineBreak/>
+                    или создать свой с помошью RGB
+                    <LineBreak/>
+                    Для этого перейдите в соответствуешее окно
+                </TextBlock>
             </Grid>
         </TabItem>
     </TabControl>
