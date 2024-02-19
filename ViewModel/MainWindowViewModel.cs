@@ -1,23 +1,14 @@
-﻿using PaintGameMVVM.Infrastructure.Commands;
-using PaintGameMVVM.ViewModel.Base;
-using System.Windows.Media;
-using System.Windows.Input;
-using System.Windows.Data;
+﻿using System.Windows.Media;
 using System.Windows.Ink;
 using System.Windows;
-using System.Runtime.CompilerServices;
 using System.Windows.Controls;
-using System.Reflection.Metadata;
-using PaintGameMVVM.Infrastructure.Commands.Base;
-using System;
 using PaintGameMVVM.Services;
-using System.Collections;
-using System.IO;
 using System.Windows.Media.Imaging;
 using PaintGameMVVM.Infrastructure.Converters;
 using System.Linq;
-using System.Collections.ObjectModel;
 using System.Collections.Generic;
+using BaseClassesLyb;
+using WpfBaseLyb;
 
 namespace PaintGameMVVM.ViewModel
 {
@@ -171,11 +162,11 @@ namespace PaintGameMVVM.ViewModel
 
             }
         }
-        public CommandBase RemoveStroke { get; }
+        public SimpleCommand RemoveStroke { get; }
 
-        private bool CanRemoveStrokeExecute(object p) => CanvasStrokeCollection.Count > 0;
+        private bool CanRemoveStrokeExecute() => CanvasStrokeCollection.Count > 0;
 
-        private void RemoveStrokeExecute(object p)
+        private void RemoveStrokeExecute()
         {
             if (strokeHistory.Count > 1)
             {
@@ -216,7 +207,7 @@ namespace PaintGameMVVM.ViewModel
             };
             //команда обновления списка строк
             AddStroke = new RegularCommand(AddStrokeExecute, CanAddStrokeExecute);
-            RemoveStroke = new RegularCommand(RemoveStrokeExecute, CanRemoveStrokeExecute);
+            RemoveStroke = new SimpleCommand(RemoveStrokeExecute, CanRemoveStrokeExecute);
             CanvasStrokeCollection = new StrokeCollection();
             strokeHistory.Push(new StrokeCollection());
 

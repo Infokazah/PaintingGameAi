@@ -8,6 +8,7 @@
   <ItemGroup>
     <Folder Include="Ai\" />
     <Folder Include="Models\" />
+    <Folder Include="ViewModel\Base\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0" />
@@ -28,5 +29,10 @@
       <DependentUpon>DivineModel.mbconfig</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="WpfBaseLyb">
+      <HintPath>..\WpfBaseLyb\bin\Debug\net7.0-windows\WpfBaseLyb.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>
