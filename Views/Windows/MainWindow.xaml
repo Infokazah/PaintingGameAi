@@ -4,10 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:PaintGameMVVM.ViewModel"
-        xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
         xmlns:xcees="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:fa="http://schemas.fontawesome.com/icons/"
-        xmlns:local="clr-namespace:PaintGameMVVM" xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="MainWindow" Height="1080" Width="1920"
         WindowState="Maximized">
@@ -17,6 +16,13 @@
     <Window.InputBindings>
         <KeyBinding Key="Z" Modifiers="Ctrl" Command="{Binding RemoveStroke}"/>
     </Window.InputBindings>
+    <Window.Resources>
+        <SolidColorBrush Color="White" x:Key="WhiteBrush"/>
+        <Style TargetType="Control" x:Key="ToolButton">
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+    </Window.Resources>
     <TabControl Background="Gray">
         <TabItem Header="Играть">
             <Grid>
@@ -42,7 +48,7 @@
                         </Button>
                         <xcees:ColorPicker Width="45" SelectedColor="{Binding CurrentColor}"/>
                     </StackPanel>
-                    <Button  Margin="5" Command="{Binding ChangeEditingMode}" Width="30"
+                    <Button  Style="{StaticResource ToolButton}" Command="{Binding ChangeEditingMode}" 
                             CommandParameter="{x:Static InkCanvasEditingMode.EraseByPoint}">
                         <Button.Content>
                             <StackPanel>
@@ -50,16 +56,17 @@
                             </StackPanel>
                         </Button.Content>
                     </Button>
-                    <Button Margin="5" Command="{Binding RemoveStroke}" Width="30">
+                    <Button Style="{StaticResource ToolButton}" Command="{Binding RemoveStroke}">
                         <Button.Content>
                             <StackPanel>
                                 <fa:ImageAwesome Height="20" Icon="Solid_ArrowLeft"/>
                             </StackPanel>
                         </Button.Content>
                     </Button>
-                    <TextBox Margin="5" Width="30" Text="{Binding CurrentSize}" FontSize="20" TextAlignment="Center"/>
-                    <TextBlock Text="{Binding CurrentTheme}" Width="100" Margin="5" FontSize="20" TextAlignment="Center" Background="White" />
-                    <Button Margin="5" Command="{Binding AiPredictCommand}" 
+                    <TextBox Style="{StaticResource ToolButton}" Text="{Binding CurrentSize}" FontSize="20" TextAlignment="Center"/>
+                    <TextBlock Text="{Binding CurrentTheme}" Width="100" Margin="5" FontSize="20" 
+                               TextAlignment="Center" Background="{StaticResource WhiteBrush}" />
+                    <Button Style="{StaticResource ToolButton}" Command="{Binding AiPredictCommand}" 
                     CommandParameter="{Binding ElementName=drawingCanvas}" >
                         <Button.Content>
                             <StackPanel>
@@ -68,7 +75,7 @@
                         </Button.Content>
                     </Button>
                 </StackPanel>
-                <InkCanvas x:Name="drawingCanvas" Background="White" Grid.Row="1" Margin="10,10,10,10"
+                <InkCanvas x:Name="drawingCanvas" Background="{StaticResource WhiteBrush}" Grid.Row="1" Margin="10,10,10,10"
             DefaultDrawingAttributes="{Binding CustomDrawingAttributes}"
             EditingMode="{Binding CanvasEditingMode}"
             Strokes="{Binding CanvasStrokeCollection}" Grid.ColumnSpan="2">
